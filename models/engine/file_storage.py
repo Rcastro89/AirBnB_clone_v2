@@ -52,11 +52,10 @@ class FileStorage:
     def delete(self, obj=None):
         """ to delete obj from __objects """
         if obj is None:
-            return
-        try:
-            strg = obj.__class__.__name__ + "." + obj.id
+            return 
+        strg = obj.__class__.__name__ + "." + obj.id
+        if strg in self.__objects.keys():
             del self.__objects[strg]
-        except ExceptionKeyError:
-            return
+        
 
         
