@@ -53,7 +53,10 @@ class FileStorage:
         """ to delete obj from __objects """
         if obj is None:
             return
-        strg = obj.__class__.__name__ + "." + obj.id
-        del self.__objects[strg]
+        try:
+            strg = obj.__class__.__name__ + "." + obj.id
+            del self.__objects[strg]
+        except Exception KeyError:
+            return
 
         
