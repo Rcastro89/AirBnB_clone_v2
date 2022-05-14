@@ -1,4 +1,4 @@
---Create new database and user
+-- a script that prepares a MySQL server for the project
 
 FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
