@@ -56,7 +56,7 @@ class FileStorage:
         try:
             strg = obj.__class__.__name__ + "." + obj.id
             del self.__objects[strg]
-        except Exception KeyError:
+        except ExceptionKeyError:
             return
 
         
