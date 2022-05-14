@@ -55,8 +55,8 @@ class FileStorage:
             return 
         strg = obj.__class__.__name__ + "." + obj.id
         if strg in self.__objects.keys():
-            del self.__objects[strg]
-        self.save()
+            self.__objects.pop(strg)
+            self.save()
         
 
         
