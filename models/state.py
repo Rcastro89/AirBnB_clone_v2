@@ -3,7 +3,6 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from models import storage
 from models.city import City
 import os
 
@@ -19,6 +18,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """method getter cities"""
+            from models import storage
             ciudades = storage.all(City)
             lista_retorno = []
             for k, v in ciudades.items():
