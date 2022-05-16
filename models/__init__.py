@@ -7,7 +7,7 @@ import os
 entorno = os.environ.get('HBNB_TYPE_STORAGE')
 
 if entorno == 'db':
-    storage  = DBStorage()
+    storage = DBStorage()
     storage.reload()
 else:
     storage = FileStorage()

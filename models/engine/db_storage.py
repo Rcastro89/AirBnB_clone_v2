@@ -22,12 +22,13 @@ class DBStorage:
         entorno = os.environ.get("HBNB_ENV")
         base = os.environ.get("HBNB_MYSQL_DB")
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                           .format(usuario, contrasena,
-                                   my_host, base), pool_pre_ping=True)
+                                      .format(usuario, contrasena,
+                                              my_host, base),
+                                      pool_pre_ping=True)
         Base.metadata.create_all(self.__engine)
         if entorno == 'test':
             Base.metadata.drop_all(self.__engine)
-    
+
     def all(self, cls=None):
         """all method"""
         clases = [State, City]
@@ -44,24 +45,26 @@ class DBStorage:
             j.__dict__.pop('_sa_instance_state')
             diccionario_retorno[j.__class__.__name__ + '.' + j.id] = j
         return diccionario_retorno
-    
+
     def new(self, obj):
         """nuevo objeto"""
         self.__session.add(obj)
-    
+
     def save(self):
         """guardar cambios"""
         self.__session.commit()
-        
+
     def delete(self, obj=None):
         """delete obj"""
         if obj:
             clase = obj.__class__.__name__
-            self.__session = clase.delete().where(clase.id == obj.__dict__['id'])
-    
+            self.__session = clase.delete().where(
+                clase.id == obj.__dict__['id'])
+
     def reload(self):
         """recargar"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
