@@ -12,6 +12,7 @@ from models.city import City
 from models.state import State
 from models.user import User
 from models.place import Place
+from models.review import Review
 
 
 class DBStorage:
@@ -42,7 +43,7 @@ class DBStorage:
         """
         all method return dictionary of cls
         """
-        clases = [State, City, User, Place]
+        clases = [State, City, User, Place, Review]
         if type(cls) == str:
             cls = eval(cls)
         if cls is None:
