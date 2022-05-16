@@ -31,6 +31,8 @@ class DBStorage:
     def all(self, cls=None):
         """all method"""
         clases = [State, City]
+        if type(cls) == str:
+            cls = eval(cls)
         if cls is None:
             lista = []
             for i in clases:
@@ -39,12 +41,13 @@ class DBStorage:
             lista = self.__session.query(cls)
         diccionario_retorno = {}
         for j in lista:
+            j.__dict__.pop('_sa_instance_state')
             diccionario_retorno[j.__class__.__name__ + '.' + j.id] = j
         return diccionario_retorno
     
     def new(self, obj):
         """nuevo objeto"""
-        self.__session.add(obj.__class__.__name__(obj.__dict__))
+        self.__session.add(obj)
     
     def save(self):
         """guardar cambios"""

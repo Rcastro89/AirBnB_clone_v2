@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import os
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -124,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
             return
         new_instance = HBNBCommand.classes[lista[0]]()
         print(new_instance.id)
-        storage.save()
         param = {}
         for x in range(1, len(lista)):
             argumento = lista[x].split("=")
@@ -132,8 +132,8 @@ class HBNBCommand(cmd.Cmd):
                 argumento[1] = argumento[1][1: len(argumento[1]) - 1]
             argumento[1] = argumento[1].replace("_", " ")
             param[argumento[0]] = argumento[1]
-        cadena = lista[0] + " " + new_instance.id + " " + str(param)
-        self.do_update(cadena)
+        new_instance.__dict__.update(param)
+        new_instance.save()
         
 
     def help_create(self):
@@ -216,11 +216,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(args).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
@@ -304,7 +304,6 @@ class HBNBCommand(cmd.Cmd):
 
         # retrieve dictionary of current objects
         new_dict = storage.all()[key]
-
         # iterate through attr names and values
         for i, att_name in enumerate(args):
             # block only runs on even iterations
@@ -322,7 +321,6 @@ class HBNBCommand(cmd.Cmd):
 
                 # update dictionary with name, value pair
                 new_dict.__dict__.update({att_name: att_val})
-
         new_dict.save()  # save updates to file
 
     def help_update(self):
