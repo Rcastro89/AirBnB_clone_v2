@@ -123,7 +123,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[lista[0]]()
-        storage.save()
         print(new_instance.id)
         storage.save()
         param = {}
