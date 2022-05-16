@@ -63,6 +63,11 @@ class DBStorage:
         """
         new object to db
         """
+        if (obj.__class__.__name__ == 'User'):
+            if 'first_name' not in obj.__dict__.keys():
+                obj.__dict__['first_name'] = ''
+            if 'last_name' not in obj.__dict__.keys():
+                obj.__dict__['last_name'] = ''
         self.__session.add(obj)
 
     def save(self):
