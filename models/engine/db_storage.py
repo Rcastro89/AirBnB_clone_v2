@@ -63,7 +63,7 @@ class DBStorage:
                 clase.id == obj.__dict__['id'])
 
     def reload(self):
-        """recargar"""
+        """recargar el modulo storage"""
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)
