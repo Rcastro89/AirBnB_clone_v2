@@ -24,20 +24,22 @@ class DBStorage:
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
                            .format(usuario, contrasena,
                                    my_host, base), pool_pre_ping=True)
+        Base.metadata.create_all(self.__engine)
         if entorno == 'test':
             Base.metadata.drop_all(self.__engine)
-        else:
-            Base.metadata.create_all(self.__engine)
-            Session = sessionmaker(bind=self.__engine)
-            self.__session = Session()
-
+    
     def all(self, cls=None):
         """all method"""
-        result = self.__session.query(cls).all()
+        clases = [State, City]
+        if cls is None:
+            lista = []
+            for i in clases:
+                lista.extend(self.__session.query(i).all())
+        else:
+            lista = self.__session.query(cls)
         diccionario_retorno = {}
-        for row in result:
-            diccionario_retorno[row.__class__.__name__ + '.' + row.__dict__['id']] = row
-        self.__session.close()
+        for j in lista:
+            diccionario_retorno[j.__class__.__name__ + '.' + j.id] = j
         return diccionario_retorno
     
     def new(self, obj):
