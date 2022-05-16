@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""db storage mysql server"""
+"""
+db storage mysql server
+"""
 
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker
@@ -11,12 +13,16 @@ from models.state import State
 
 
 class DBStorage:
-    """la base de datos storage"""
+    """
+    New engine DBStorage
+    """
     __engine = None
     __session = None
 
     def __init__(self):
-        """constructor de clase"""
+        """
+        constructor de clase
+        """
         my_host = os.environ.get("HBNB_MYSQL_HOST")
         usuario = os.environ.get("HBNB_MYSQL_USER")
         contrasena = os.environ.get("HBNB_MYSQL_PWD")
@@ -31,7 +37,9 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """all method"""
+        """
+        all method return dictionary of cls
+        """
         clases = [State, City]
         if type(cls) == str:
             cls = eval(cls)
@@ -48,22 +56,31 @@ class DBStorage:
         return diccionario_retorno
 
     def new(self, obj):
-        """nuevo objeto"""
+        """
+        new object to db
+        """
         self.__session.add(obj)
 
     def save(self):
-        """guardar cambios"""
+        """
+        save changes
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
-        """delete obj"""
+        """
+        delete obj
+        """
         if obj:
             clase = obj.__class__.__name__
             self.__session = clase.delete().where(
                 clase.id == obj.__dict__['id'])
 
     def reload(self):
-        """recargar el modulo storage"""
+        """
+        create all tables in the database
+        create the current database session
+        """
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)
