@@ -11,7 +11,7 @@ from models.state import State
 
 
 class DBStorage:
-    """Comentarios"""
+    """la base de datos storage"""
     __engine = None
     __session = None
 
