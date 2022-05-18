@@ -3,6 +3,7 @@
 db storage mysql server
 """
 
+
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
@@ -65,9 +66,9 @@ class DBStorage:
         """
         if (obj.__class__.__name__ == 'User'):
             if 'first_name' not in obj.__dict__.keys():
-                obj.__dict__['first_name'] = ''
+                obj.__dict__['first_name'] = None
             if 'last_name' not in obj.__dict__.keys():
-                obj.__dict__['last_name'] = ''
+                obj.__dict__['last_name'] = None
         self.__session.add(obj)
 
     def save(self):
