@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""first module flask"""
 
 from flask import Flask
 
@@ -7,6 +8,7 @@ app.url_map.strict_slashes = False
 
 @app.route('/')
 def hello():
+    """function to return message"""
     return "Hello HBNB!"
 
 if __name__ == '__main__':
