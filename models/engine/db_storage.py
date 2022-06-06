@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-db storage mysql server
-"""
+""" db storage mysql server """
 
 
 from sqlalchemy import (create_engine)

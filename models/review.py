@@ -7,7 +7,8 @@ from sqlalchemy import Column, String, ForeignKey
 
 class Review(BaseModel, Base):
     """ Review classto store review information
-        Inherits from SQLAlchemy Base and links to the MySQL table reviews.
+        Inherits from SQLAlchemy Base and links 
+        to the MySQL table reviews.
     """
     __tablename__ = "reviews"
     text = Column(String(1024), nullable=False)

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""first module flask"""
+""" first module flask """
 
 from models import storage
 from flask import Flask, render_template
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown(arg):
-    """ Handler for teardow"""
+    """ Handler for teardow """
     storage.close()
 
 

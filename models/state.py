@@ -17,7 +17,7 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            """method getter cities"""
+            """ method getter cities """
             from models import storage
             ciudades = storage.all(City)
             lista_retorno = []

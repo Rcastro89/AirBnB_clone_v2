@@ -41,7 +41,7 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
-            """Getter reviews"""
+            """ Getter reviews """
             from models import storage
             revisar = storage.all(City)
             lista_retorno = []
